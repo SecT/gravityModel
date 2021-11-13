@@ -1,5 +1,6 @@
 // the configured options and settings 
-//#define Tutorial_VERSION_MAJOR @Tutorial_VERSION_MAJOR@
-//#define Tutorial_VERSION_MINOR @Tutorial_VERSION_MINOR@
+// myCmakeTraining - project name specified in CMakeLists.txt
+#define Tutorial_VERSION_MAJOR @myCmakeTraining_VERSION_MAJOR@
+#define Tutorial_VERSION_MINOR @myCmakeTraining_VERSION_MINOR@
 
 #define myDef 1
