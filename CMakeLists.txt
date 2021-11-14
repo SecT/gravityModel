@@ -12,12 +12,17 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 #the first filename given is the base file, used to generate the second file
 configure_file(myConfig.h.in myConfig.h)
 
+add_subdirectory(myLib)
+
 # add the executable
 # this will be the output exe name
 # The exe name doesn't need to be the same as the project name
 add_executable(myCmakeTraining main.cpp)
 
+target_link_libraries(myCmakeTraining PUBLIC myLib)
+
 #this specifies the include directories. So the paths to included files in the source files don't need to be specified - the name is enough
 target_include_directories(myCmakeTraining PUBLIC
                            "${PROJECT_BINARY_DIR}"
+                           "${PROJECT_SOURCE_DIR}/myLib"
                            )

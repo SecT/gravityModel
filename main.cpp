@@ -6,7 +6,7 @@
 #include <tuple>
 
 #include "myConfig.h"
-
+#include "myLib.h"
 
 struct S {
     int n;
@@ -39,8 +39,10 @@ int main()
 	
 	
 	std::cout<<fun()<<std::endl;
-
 	
+	//from myLib.h
+	std::cout<<fun2()<<std::endl;
+	//
 
     // pre C++17:
     {
