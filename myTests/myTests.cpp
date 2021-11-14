@@ -1,5 +1,4 @@
 #include <gtest/gtest.h>
-//#include "../myLib/myLib.h"
 #include "myLib.h"
 
 //GS note: it seems that tests can't be found/run if the file contains main(). 
