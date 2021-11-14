@@ -8,6 +8,8 @@
 #include "myConfig.h"
 #include "myLib.h"
 
+#include "main.h"
+
 struct S {
     int n;
     std::string s;
