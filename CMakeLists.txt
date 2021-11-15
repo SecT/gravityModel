@@ -40,6 +40,8 @@ add_executable(myCmakeTraining main.cpp)
 
 #link_directories("${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib")
 
+
+
 #this specifies the include directories. So the paths to included files in the source files don't need to be specified - the name is enough
 target_include_directories(myCmakeTraining PUBLIC
                            "${PROJECT_BINARY_DIR}"
@@ -55,6 +57,13 @@ target_include_directories(myCmakeTraining PUBLIC
 target_link_libraries(myCmakeTraining PUBLIC myLib "${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib/sfml-system.lib" "${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib/sfml-window.lib")
 #target_link_libraries(myTests PUBLIC gtest_main myLib)
 
+#copy dlls needed for runtime to the exe dir
+add_custom_command(TARGET myCmakeTraining POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/SFML-2.5.1/bin/sfml-window-2.dll" "${PROJECT_BINARY_DIR}/Debug/"
+    COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/SFML-2.5.1/bin/sfml-window-d-2.dll" "${PROJECT_BINARY_DIR}/Debug/"
+    COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/SFML-2.5.1/bin/sfml-system-2.dll" "${PROJECT_BINARY_DIR}/Debug/"
+    COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/SFML-2.5.1/bin/sfml-system-d-2.dll" "${PROJECT_BINARY_DIR}/Debug/"
+    )
 
 #target_include_directories( myTests PUBLIC
 #                           "${PROJECT_SOURCE_DIR}/myLib"
