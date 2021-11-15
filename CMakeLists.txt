@@ -16,6 +16,8 @@ add_subdirectory(myLib)
 
 add_subdirectory(myTests)
 
+#add_subdirectory("SFML-2.5.1/lib/cmake")
+
 include(FetchContent)
 FetchContent_Declare(
   googletest
@@ -34,14 +36,26 @@ enable_testing()
 add_executable(myCmakeTraining main.cpp)
 #add_executable(myTests myTests.cpp)
 
-target_link_libraries(myCmakeTraining PUBLIC myLib)
-#target_link_libraries(myTests PUBLIC gtest_main myLib)
+#add_library( sfml-window SHARED IMPORTED )
+
+#link_directories("${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib")
 
 #this specifies the include directories. So the paths to included files in the source files don't need to be specified - the name is enough
 target_include_directories(myCmakeTraining PUBLIC
                            "${PROJECT_BINARY_DIR}"
                            "${PROJECT_SOURCE_DIR}/myLib"
+                           "${PROJECT_SOURCE_DIR}/SFML-2.5.1/include/"
+                           "${PROJECT_SOURCE_DIR}/SFML-2.5.1/bin"
+#                           "${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib"
                            )
+
+#target_link_directories(myCmakeTraining PUBLIC "${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib")
+
+#target_link_libraries(myCmakeTraining PUBLIC myLib)
+target_link_libraries(myCmakeTraining PUBLIC myLib "${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib/sfml-system.lib" "${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib/sfml-window.lib")
+#target_link_libraries(myTests PUBLIC gtest_main myLib)
+
+
 #target_include_directories( myTests PUBLIC
 #                           "${PROJECT_SOURCE_DIR}/myLib"
 #)
