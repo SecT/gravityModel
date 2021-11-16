@@ -5,12 +5,16 @@
 #include <iterator>
 #include <tuple>
 
+
+#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
+
 #include "myConfig.h"
 #include "myLib.h"
 
 #include "main.h"
 
-#include <SFML/Window.hpp>
+
 
 struct S {
     int n;
@@ -75,10 +79,19 @@ int main()
 		    std::cout << "Value(" << iter->n << ", " << iter->s << ", ...) was inserted" << "\n";
     }
 
-	sf::Window window(sf::VideoMode(800, 600), "My window");
+	//sf::Window window(sf::VideoMode(800, 600), "My window");
+	sf::RenderWindow  window(sf::VideoMode(800, 600), "My window");
+
+	sf::RectangleShape myRectangle(sf::Vector2f(200.f, 50.f));
+	myRectangle.setPosition(300,500);
+	myRectangle.setFillColor(sf::Color(100, 250, 50));
+	//myRectangle.setSize(sf::Vector2f(100.f, 100.f));
 
 	while (window.isOpen())
 		{
+			
+			
+			
 			// check all the window's events that were triggered since the last iteration of the loop
 			sf::Event event;
 			while (window.pollEvent(event))
@@ -87,6 +100,13 @@ int main()
 				if (event.type == sf::Event::Closed)
 					window.close();
 			}
+		
+		window.clear(sf::Color::White);
+		
+		window.draw(myRectangle);
+		
+		// end the current frame
+        window.display();
 		}
 
 	return 0;

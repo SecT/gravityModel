@@ -54,7 +54,7 @@ target_include_directories(myCmakeTraining PUBLIC
 #target_link_directories(myCmakeTraining PUBLIC "${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib")
 
 #target_link_libraries(myCmakeTraining PUBLIC myLib)
-target_link_libraries(myCmakeTraining PUBLIC myLib "${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib/sfml-system.lib" "${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib/sfml-window.lib")
+target_link_libraries(myCmakeTraining PUBLIC myLib "${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib/sfml-system.lib" "${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib/sfml-window.lib" "${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib/sfml-graphics.lib")
 #target_link_libraries(myTests PUBLIC gtest_main myLib)
 
 #copy dlls needed for runtime to the exe dir
@@ -63,6 +63,8 @@ add_custom_command(TARGET myCmakeTraining POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/SFML-2.5.1/bin/sfml-window-d-2.dll" "${PROJECT_BINARY_DIR}/Debug/"
     COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/SFML-2.5.1/bin/sfml-system-2.dll" "${PROJECT_BINARY_DIR}/Debug/"
     COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/SFML-2.5.1/bin/sfml-system-d-2.dll" "${PROJECT_BINARY_DIR}/Debug/"
+    COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/SFML-2.5.1/bin/sfml-graphics-2.dll" "${PROJECT_BINARY_DIR}/Debug/"
+    COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/SFML-2.5.1/bin/sfml-graphics-d-2.dll" "${PROJECT_BINARY_DIR}/Debug/"
     )
 
 #target_include_directories( myTests PUBLIC
