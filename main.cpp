@@ -79,18 +79,34 @@ int main()
 		    std::cout << "Value(" << iter->n << ", " << iter->s << ", ...) was inserted" << "\n";
     }
 
+	int window_width = 800;
+	int window_height = 600;
+
 	//sf::Window window(sf::VideoMode(800, 600), "My window");
-	sf::RenderWindow  window(sf::VideoMode(800, 600), "My window");
+	sf::RenderWindow  window(sf::VideoMode(window_width, window_height), "My window");
 
 	sf::RectangleShape myRectangle(sf::Vector2f(200.f, 50.f));
 	myRectangle.setPosition(300,500);
 	myRectangle.setFillColor(sf::Color(100, 250, 50));
 	//myRectangle.setSize(sf::Vector2f(100.f, 100.f));
 
+	int circle_x = 400;
+	int circle_y = 300;
+	float circle_r = 25.f;
+
+	//sf::Vector2f circle_movement(1.f, 0.f);
+	sf::Vector2f circle_movement(1.f, 1.f);
+
+	sf::CircleShape myCircle(circle_r);
+	
+
+	
+	myCircle.setFillColor(sf::Color(100, 250, 50));
+
 	while (window.isOpen())
 		{
 			
-			
+			myCircle.setPosition(circle_x,circle_y);
 			
 			// check all the window's events that were triggered since the last iteration of the loop
 			sf::Event event;
@@ -104,9 +120,29 @@ int main()
 		window.clear(sf::Color::White);
 		
 		window.draw(myRectangle);
+		window.draw(myCircle);
 		
 		// end the current frame
         window.display();
+		
+		if (circle_x+circle_r*2+circle_movement.x< window_width && circle_x+circle_movement.x>=0)
+		{
+			circle_x=circle_x+circle_movement.x;
+		}
+		else{
+			//bounce the ball off the wall
+			circle_movement.x = -circle_movement.x;
+		}
+		
+		if (circle_y+circle_r*2+circle_movement.y< window_height && circle_y+circle_movement.y>=0)
+		{
+			circle_y=circle_y+circle_movement.y;
+		}
+		else{
+			//bounce the ball off the wall
+			circle_movement.y = -circle_movement.y;
+		}
+		
 		}
 
 	return 0;
