@@ -83,12 +83,16 @@ int main()
 	int window_height = 600;
 
 	//sf::Window window(sf::VideoMode(800, 600), "My window");
-	sf::RenderWindow  window(sf::VideoMode(window_width, window_height), "My window");
+	sf::RenderWindow  window(sf::VideoMode(window_width, window_height), "My window 2");
 
 	sf::RectangleShape myRectangle(sf::Vector2f(200.f, 50.f));
-	myRectangle.setPosition(300,500);
+	
+	int rect_x = 300;
+	int rect_y = 500;
+	
 	myRectangle.setFillColor(sf::Color(100, 250, 50));
 	//myRectangle.setSize(sf::Vector2f(100.f, 100.f));
+	myRectangle.setPosition(rect_x,rect_y);
 
 	int circle_x = 400;
 	int circle_y = 300;
@@ -99,12 +103,14 @@ int main()
 
 	sf::CircleShape myCircle(circle_r);
 	
-
-	
 	myCircle.setFillColor(sf::Color(100, 250, 50));
+
+std::cout<<"Sfml start"<std::endl;
 
 	while (window.isOpen())
 		{
+			
+			std::cout<<"Event"<std::endl;
 			
 			myCircle.setPosition(circle_x,circle_y);
 			
@@ -112,9 +118,35 @@ int main()
 			sf::Event event;
 			while (window.pollEvent(event))
 			{
+				
+				std::cout<<"Event"<std::endl;
+				
 				// "close requested" event: we close the window
 				if (event.type == sf::Event::Closed)
+				{
 					window.close();
+				}
+				
+				if (event.type == sf::Event::KeyPressed)
+				{
+					if (event.key.code == sf::Keyboard::Left)
+					{
+						rect_x--;
+						
+						
+						
+						myRectangle.setPosition(rect_x,rect_y);
+					}
+					
+					if (event.key.code == sf::Keyboard::Right)
+					{
+						rect_x++;
+						
+						myRectangle.setPosition(rect_x,rect_y);
+					}
+					
+					std::cout<<"rect_x: "<<rect_x<<std::endl;
+				}
 			}
 		
 		window.clear(sf::Color::White);
