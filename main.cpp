@@ -105,12 +105,12 @@ int main()
 	
 	myCircle.setFillColor(sf::Color(100, 250, 50));
 
-std::cout<<"Sfml start"<std::endl;
+std::cout<<"Sfml start"<<std::endl;
 
 	while (window.isOpen())
 		{
 			
-			std::cout<<"Event"<std::endl;
+			std::cout<<"Event"<<std::endl;
 			
 			myCircle.setPosition(circle_x,circle_y);
 			
@@ -119,7 +119,7 @@ std::cout<<"Sfml start"<std::endl;
 			while (window.pollEvent(event))
 			{
 				
-				std::cout<<"Event"<std::endl;
+				std::cout<<"Event"<<std::endl;
 				
 				// "close requested" event: we close the window
 				if (event.type == sf::Event::Closed)
