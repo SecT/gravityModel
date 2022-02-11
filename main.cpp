@@ -15,32 +15,47 @@
 #include "main.h"
 
 
-//struct S {
-//    int n;
-//    std::string s;
-//    float d;
-//    bool operator<(const S& rhs) const
-//    {
-//        // compares n to rhs.n,
-//        // then s to rhs.s,
-//        // then d to rhs.d
-//        return std::tie(n, s, d) < std::tie(rhs.n, rhs.s, rhs.d);
-//    }
-//};
-//
-//int fun()
-//{
-//	auto a = 1;
-//
-//	return a;
-//}
-
 void processMotionForBodies(std::vector<Body> &bodies)
 {
 
     for(std::vector<Body>::iterator it = bodies.begin(); it != bodies.end(); ++it)
     {
+
+        //calculate
+
+        //calculate accelaration
+        //a = F/m
+        //m can be normalized to 1
+        float f_x = 0.f;
+        float f_y = 0.f;
+        for(std::vector<Body>::iterator jt = bodies.begin(); jt != bodies.end(); ++jt)
+        {
+            if( it != jt  )
+            {
+                float f_n_x = 0.f;
+                float f_n_y = 0.f;
+                //calculate f_n between (it) and (jt)
+                //then add f to the sum of forces on (it)
+                f_x+=f_n_x;
+                f_y+=f_n_y;
+            }
+        }
+        //m=1
+        float a_x = f_x;
+        float a_y = f_y;
+
+        //update velocity
+        //v = v_old + a*t
+        //t can be normalized to 1 ?
+        (*it).v_x+=a_x;
+        (*it).v_y+=a_y;
+
+        //update position
+        //x_current = x_old + v*t
+        //t can be normalized to 1 ?
         (*it).setPosition((*it).x + (*it).v_x, (*it).y + (*it).v_y);
+
+
         std::cout<<(*it).x<<" "<<(*it).y<<std::endl;
     }
 
