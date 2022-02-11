@@ -41,7 +41,7 @@ float calculateDistance_y(Body& b1, Body& b2)
 }
 
 
-void processMotionForBodies(std::vector<Body> &bodies)
+void processMotionForBodies(std::vector<Body> &bodies, float dt)
 {
     //TODO: refactoring and optimization
     //- F(A,B) = F(B,A) , where A,B - bodies
@@ -91,7 +91,7 @@ void processMotionForBodies(std::vector<Body> &bodies)
                 {
                     r_y_sqr = -r_y_sqr;
                 }
-////////////////
+                ////////////////
 
                 if(r_x_sqr != 0)
                 {
@@ -135,9 +135,10 @@ void processMotionForBodies(std::vector<Body> &bodies)
         //v = v_old + a*t
         //t can be normalized to 1 ?
         //(*it).v_x+=a_x;
-        (*it).v_x+=accelerations_x[i];
+        //float dt = 1.f;
+        (*it).v_x+=(accelerations_x[i] *dt);
         //(*it).v_y+=a_y;
-        (*it).v_y+=accelerations_y[i];
+        (*it).v_y+=(accelerations_y[i] *dt);
 
         //update position
         //x_current = x_old + v*t
@@ -160,6 +161,9 @@ int main()
     std::cout<<Tutorial_VERSION_MAJOR << "."<< Tutorial_VERSION_MINOR <<std::endl;
 
 
+    float dt = 1.f;
+    std::cout<<"dt: "<<std::endl;
+
     int window_width = 800;
     int window_height = 600;
 
@@ -170,7 +174,7 @@ int main()
 
     bodies.push_back(Body(25.f));
     bodies.push_back(Body(25.f));
-    bodies.push_back(Body(25.f));
+    //bodies.push_back(Body(25.f));
 
     //sf::Vector2f circle_movement(1.f, 0.f);
     //sf::Vector2f circle_movement(1.f, 1.f);
@@ -182,8 +186,8 @@ int main()
     bodies[1].setVelocity(0.f, 0.f);
 
     //Test case - bodies on the same X
-    //bodies[0].setPosition(400, 300);
-    //bodies[1].setPosition(400, 200);
+    bodies[0].setPosition(400, 300);
+    bodies[1].setPosition(400, 200);
     ///
 
     //Test case - bodies on the same Y
@@ -192,9 +196,9 @@ int main()
     //////
 
     //Test case - three bodies placed in a triangle
-    bodies[0].setPosition(400, 100);
-    bodies[1].setPosition(200, 400);
-    bodies[2].setPosition(600, 400);
+    //bodies[0].setPosition(400, 100);
+    //bodies[1].setPosition(200, 400);
+    //bodies[2].setPosition(600, 400);
     //////
 
     std::cout<<"Sfml start"<<std::endl;
@@ -202,7 +206,7 @@ int main()
     while (window.isOpen())
     {
         //std::cout<<"Event"<<std::endl;
-        processMotionForBodies(bodies);
+
         // check all the window's events that were triggered since the last iteration of the loop
         sf::Event event;
         while (window.pollEvent(event))
@@ -214,15 +218,15 @@ int main()
                 window.close();
             }
 
-//            if (event.type == sf::Event::KeyPressed)
-//            {
-//                if (event.key.code == sf::Keyboard::Space)
+            if (event.type == sf::Event::KeyPressed)
             {
-                std::cout<<std::endl;
+                if (event.key.code == sf::Keyboard::Space)
+                {
+                    std::cout<<std::endl;
 
-                processMotionForBodies(bodies);
+                    processMotionForBodies(bodies, dt);
+                }
             }
-            // }
         }
 
         window.clear(sf::Color::White);
