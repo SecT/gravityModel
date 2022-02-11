@@ -3,8 +3,7 @@
 #include <set>
 #include <string>
 #include <iterator>
-#include <tuple>
-
+//#include <tuple>
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
@@ -13,7 +12,6 @@
 #include "myLib.h"
 
 #include "main.h"
-
 
 
 //struct S {
@@ -32,10 +30,39 @@
 //int fun()
 //{
 //	auto a = 1;
-//	
+//
 //	return a;
 //}
 
+class Body
+{
+private:
+
+    sf::CircleShape myCircle;
+
+    public:
+    float x;
+    float y;
+    float r;
+
+    Body(float r)
+    {
+	myCircle = sf::CircleShape(r);
+	myCircle.setFillColor(sf::Color(100, 250, 50));
+    }
+
+    void setPosition(float newX, float newY)
+    {
+        myCircle.setPosition(newX, newY);
+    }
+
+    //TODO: just make Body drawable, instead of exposing myCircle
+    sf::CircleShape getCircleShape()
+    {
+        return myCircle;
+    }
+
+};
 
 
 int main()
@@ -44,8 +71,8 @@ int main()
 	//std::cout<<myDef<<std::endl;
 	std::cout<<"Version: ";
 	std::cout<<Tutorial_VERSION_MAJOR << "."<< Tutorial_VERSION_MINOR <<std::endl;
-	
-	
+
+
 	//std::cout<<fun()<<std::endl;
 	//from myLib.h
 	//std::cout<<fun2()<<std::endl;
@@ -64,69 +91,72 @@ int main()
 	////myRectangle.setSize(sf::Vector2f(100.f, 100.f));
 	//myRectangle.setPosition(rect_x,rect_y);
 
-	float circle_x = 400;
-	float circle_y = 300;
-	float circle_r = 25.f;
+//	float circle_x = 400;
+//	float circle_y = 300;
+//	float circle_r = 25.f;
+    Body body0(55.f);
 
 	//sf::Vector2f circle_movement(1.f, 0.f);
 	sf::Vector2f circle_movement(1.f, 1.f);
 
-	sf::CircleShape myCircle(circle_r);
-	
-	myCircle.setFillColor(sf::Color(100, 250, 50));
+//	sf::CircleShape myCircle(circle_r);
+
+//	myCircle.setFillColor(sf::Color(100, 250, 50));
 
 	std::cout<<"Sfml start"<<std::endl;
 
 	while (window.isOpen())
 		{
-			
+
 			//std::cout<<"Event"<<std::endl;
-			
-			myCircle.setPosition(circle_x,circle_y);
-			
+
+//			myCircle.setPosition(circle_x,circle_y);
+            body0.setPosition(400, 300);
+
 			// check all the window's events that were triggered since the last iteration of the loop
 			sf::Event event;
 			while (window.pollEvent(event))
 			{
-				
+
 //				std::cout<<"Event"<<std::endl;
-				
+
 				// "close requested" event: we close the window
 				if (event.type == sf::Event::Closed || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape ) )
 				{
 					window.close();
 				}
-				
+
 				//if (event.type == sf::Event::KeyPressed)
 				//{
 				//	if (event.key.code == sf::Keyboard::Left)
 				//	{
 				//		rect_x--;
-				//		
-				//		
-				//		
+				//
+				//
+				//
 				//		myRectangle.setPosition(rect_x,rect_y);
 				//	}
-				//	
+				//
 				//	if (event.key.code == sf::Keyboard::Right)
 				//	{
 				//		rect_x++;
-				//		
+				//
 				//		myRectangle.setPosition(rect_x,rect_y);
 				//	}
-				//	
+				//
 //				//	std::cout<<"rect_x: "<<rect_x<<std::endl;
 				//}
 			}
-		
+
 		window.clear(sf::Color::White);
-		
+
 		//window.draw(myRectangle);
-		window.draw(myCircle);
-		
+//		window.draw(myCircle);
+        window.draw(body0.getCircleShape());
+
 		// end the current frame
         window.display();
-		
+
 		//if (circle_x+circle_r*2+circle_movement.x< window_width && circle_x+circle_movement.x>=0)
 		//{
 		//	circle_x=circle_x+circle_movement.x;
@@ -144,7 +174,7 @@ int main()
 		//	//bounce the ball off the wall
 		//	circle_movement.y = -circle_movement.y;
 		//}
-		
+
 		}
 
 	return 0;
