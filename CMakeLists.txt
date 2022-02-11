@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 
 # set the project name
-project(myCmakeTraining VERSION 0.1)
+project(gravityModel VERSION 0.1)
 
 # specify the C++ standard
 #set(CMAKE_CXX_STANDARD 11)
@@ -33,7 +33,7 @@ enable_testing()
 # add the executable
 # this will be the output exe name
 # The exe name doesn't need to be the same as the project name
-add_executable(myCmakeTraining main.cpp)
+add_executable(gravityModel main.cpp)
 #add_executable(myTests myTests.cpp)
 
 #add_library( sfml-window SHARED IMPORTED )
@@ -43,7 +43,7 @@ add_executable(myCmakeTraining main.cpp)
 
 
 #this specifies the include directories. So the paths to included files in the source files don't need to be specified - the name is enough
-target_include_directories(myCmakeTraining PUBLIC
+target_include_directories(gravityModel PUBLIC
                            "${PROJECT_BINARY_DIR}"
                            "${PROJECT_SOURCE_DIR}/myLib"
                            "${PROJECT_SOURCE_DIR}/SFML-2.5.1/include/"
@@ -51,14 +51,14 @@ target_include_directories(myCmakeTraining PUBLIC
 #                           "${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib"
                            )
 
-#target_link_directories(myCmakeTraining PUBLIC "${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib")
+#target_link_directories(gravityModel PUBLIC "${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib")
 
-#target_link_libraries(myCmakeTraining PUBLIC myLib)
-target_link_libraries(myCmakeTraining PUBLIC myLib "${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib/sfml-system.lib" "${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib/sfml-window.lib" "${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib/sfml-graphics.lib")
+#target_link_libraries(gravityModel PUBLIC myLib)
+target_link_libraries(gravityModel PUBLIC myLib "${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib/sfml-system.lib" "${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib/sfml-window.lib" "${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib/sfml-graphics.lib")
 #target_link_libraries(myTests PUBLIC gtest_main myLib)
 
 #copy dlls needed for runtime to the exe dir
-add_custom_command(TARGET myCmakeTraining POST_BUILD
+add_custom_command(TARGET gravityModel POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/SFML-2.5.1/bin/sfml-window-2.dll" "${PROJECT_BINARY_DIR}/Debug/"
     COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/SFML-2.5.1/bin/sfml-window-d-2.dll" "${PROJECT_BINARY_DIR}/Debug/"
     COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/SFML-2.5.1/bin/sfml-system-2.dll" "${PROJECT_BINARY_DIR}/Debug/"
