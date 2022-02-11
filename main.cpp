@@ -34,148 +34,133 @@
 //	return a;
 //}
 
-class Body
-{
-private:
-
-    sf::CircleShape myCircle;
-
-    public:
-    float x;
-    float y;
-    float r;
-
-    Body(float r)
-    {
-	myCircle = sf::CircleShape(r);
-	myCircle.setFillColor(sf::Color(100, 250, 50));
-    }
-
-    void setPosition(float newX, float newY)
-    {
-        myCircle.setPosition(newX, newY);
-    }
-
-    //TODO: just make Body drawable, instead of exposing myCircle
-    sf::CircleShape getCircleShape()
-    {
-        return myCircle;
-    }
-
-};
-
 
 int main()
 {
-	std::cout<<"Gravity Model"<<std::endl;
-	//std::cout<<myDef<<std::endl;
-	std::cout<<"Version: ";
-	std::cout<<Tutorial_VERSION_MAJOR << "."<< Tutorial_VERSION_MINOR <<std::endl;
+    std::cout<<"Gravity Model"<<std::endl;
+    //std::cout<<myDef<<std::endl;
+    std::cout<<"Version: ";
+    std::cout<<Tutorial_VERSION_MAJOR << "."<< Tutorial_VERSION_MINOR <<std::endl;
 
 
-	//std::cout<<fun()<<std::endl;
-	//from myLib.h
-	//std::cout<<fun2()<<std::endl;
-	//
+    //std::cout<<fun()<<std::endl;
+    //from myLib.h
+    //std::cout<<fun2()<<std::endl;
+    //
 
-	int window_width = 800;
-	int window_height = 600;
+    int window_width = 800;
+    int window_height = 600;
 
-	//sf::Window window(sf::VideoMode(800, 600), "My window");
-	sf::RenderWindow  window(sf::VideoMode(window_width, window_height), "Gravity Model");
+    //sf::Window window(sf::VideoMode(800, 600), "My window");
+    sf::RenderWindow  window(sf::VideoMode(window_width, window_height), "Gravity Model");
 
-	//sf::RectangleShape myRectangle(sf::Vector2f(200.f, 50.f));
-	//int rect_x = 300;
-	//int rect_y = 500;
-	//myRectangle.setFillColor(sf::Color(100, 250, 50));
-	////myRectangle.setSize(sf::Vector2f(100.f, 100.f));
-	//myRectangle.setPosition(rect_x,rect_y);
+    //sf::RectangleShape myRectangle(sf::Vector2f(200.f, 50.f));
+    //int rect_x = 300;
+    //int rect_y = 500;
+    //myRectangle.setFillColor(sf::Color(100, 250, 50));
+    ////myRectangle.setSize(sf::Vector2f(100.f, 100.f));
+    //myRectangle.setPosition(rect_x,rect_y);
 
 //	float circle_x = 400;
 //	float circle_y = 300;
 //	float circle_r = 25.f;
     Body body0(55.f);
 
-	//sf::Vector2f circle_movement(1.f, 0.f);
-	sf::Vector2f circle_movement(1.f, 1.f);
+    //sf::Vector2f circle_movement(1.f, 0.f);
+    //sf::Vector2f circle_movement(1.f, 1.f);
+    body0.setVelocity(1.f, 0.f);
 
 //	sf::CircleShape myCircle(circle_r);
 
 //	myCircle.setFillColor(sf::Color(100, 250, 50));
 
-	std::cout<<"Sfml start"<<std::endl;
+    body0.setPosition(400, 300);
 
-	while (window.isOpen())
-		{
+    //std::cout<<body0.x<<" "<<body0.y<<std::endl;
 
-			//std::cout<<"Event"<<std::endl;
+    std::cout<<"Sfml start"<<std::endl;
+
+    while (window.isOpen())
+    {
+
+        //std::cout<<"Event"<<std::endl;
 
 //			myCircle.setPosition(circle_x,circle_y);
-            body0.setPosition(400, 300);
+        //body0.setPosition(body0.x + body0.v_x, body0.y + body0.v_y);
 
-			// check all the window's events that were triggered since the last iteration of the loop
-			sf::Event event;
-			while (window.pollEvent(event))
-			{
+        // check all the window's events that were triggered since the last iteration of the loop
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
 
 //				std::cout<<"Event"<<std::endl;
 
-				// "close requested" event: we close the window
-				if (event.type == sf::Event::Closed || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape ) )
-				{
-					window.close();
-				}
+            // "close requested" event: we close the window
+            if (event.type == sf::Event::Closed || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape ) )
+            {
+                window.close();
+            }
 
-				//if (event.type == sf::Event::KeyPressed)
-				//{
-				//	if (event.key.code == sf::Keyboard::Left)
-				//	{
-				//		rect_x--;
-				//
-				//
-				//
-				//		myRectangle.setPosition(rect_x,rect_y);
-				//	}
-				//
-				//	if (event.key.code == sf::Keyboard::Right)
-				//	{
-				//		rect_x++;
-				//
-				//		myRectangle.setPosition(rect_x,rect_y);
-				//	}
-				//
+            if (event.type == sf::Event::KeyPressed)
+            {
+                if (event.key.code == sf::Keyboard::Space)
+                {
+                    body0.setPosition(body0.x + body0.v_x, body0.y + body0.v_y);
+                    std::cout<<body0.x<<" "<<body0.y<<std::endl;
+                    //    std::cout<<body0.v_x<<" "<<body0.v_y<<std::endl;
+                    //  std::cout<<body0.v_x+body0.x<<std::endl;
+                }
+            }
+            //if (event.type == sf::Event::KeyPressed)
+            //{
+            //	if (event.key.code == sf::Keyboard::Left)
+            //	{
+            //		rect_x--;
+            //
+            //
+            //
+            //		myRectangle.setPosition(rect_x,rect_y);
+            //	}
+            //
+            //	if (event.key.code == sf::Keyboard::Right)
+            //	{
+            //		rect_x++;
+            //
+            //		myRectangle.setPosition(rect_x,rect_y);
+            //	}
+            //
 //				//	std::cout<<"rect_x: "<<rect_x<<std::endl;
-				//}
-			}
+            //}
+        }
 
-		window.clear(sf::Color::White);
+        window.clear(sf::Color::White);
 
-		//window.draw(myRectangle);
+        //window.draw(myRectangle);
 //		window.draw(myCircle);
         window.draw(body0.getCircleShape());
 
-		// end the current frame
+        // end the current frame
         window.display();
 
-		//if (circle_x+circle_r*2+circle_movement.x< window_width && circle_x+circle_movement.x>=0)
-		//{
-		//	circle_x=circle_x+circle_movement.x;
-		//}
-		//else{
-		//	//bounce the ball off the wall
-		//	circle_movement.x = -circle_movement.x;
-		//}
-		//
-		//if (circle_y+circle_r*2+circle_movement.y< window_height && circle_y+circle_movement.y>=0)
-		//{
-		//	circle_y=circle_y+circle_movement.y;
-		//}
-		//else{
-		//	//bounce the ball off the wall
-		//	circle_movement.y = -circle_movement.y;
-		//}
+        //if (circle_x+circle_r*2+circle_movement.x< window_width && circle_x+circle_movement.x>=0)
+        //{
+        //	circle_x=circle_x+circle_movement.x;
+        //}
+        //else{
+        //	//bounce the ball off the wall
+        //	circle_movement.x = -circle_movement.x;
+        //}
+        //
+        //if (circle_y+circle_r*2+circle_movement.y< window_height && circle_y+circle_movement.y>=0)
+        //{
+        //	circle_y=circle_y+circle_movement.y;
+        //}
+        //else{
+        //	//bounce the ball off the wall
+        //	circle_movement.y = -circle_movement.y;
+        //}
 
-		}
+    }
 
-	return 0;
+    return 0;
 }

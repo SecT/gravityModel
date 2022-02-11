@@ -1,5 +1,5 @@
 int fun2()
 {
-	
-	return 123;
+
+    return 123;
 }
