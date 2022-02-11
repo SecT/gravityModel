@@ -170,6 +170,7 @@ int main()
 
     bodies.push_back(Body(25.f));
     bodies.push_back(Body(25.f));
+    bodies.push_back(Body(25.f));
 
     //sf::Vector2f circle_movement(1.f, 0.f);
     //sf::Vector2f circle_movement(1.f, 1.f);
@@ -181,13 +182,19 @@ int main()
     bodies[1].setVelocity(0.f, 0.f);
 
     //Test case - bodies on the same X
-    bodies[0].setPosition(400, 300);
-    bodies[1].setPosition(400, 200);
+    //bodies[0].setPosition(400, 300);
+    //bodies[1].setPosition(400, 200);
     ///
 
     //Test case - bodies on the same Y
     //bodies[0].setPosition(400, 300);
     //bodies[1].setPosition(300, 300);
+    //////
+
+    //Test case - three bodies placed in a triangle
+    bodies[0].setPosition(400, 100);
+    bodies[1].setPosition(200, 400);
+    bodies[2].setPosition(600, 400);
     //////
 
     std::cout<<"Sfml start"<<std::endl;
