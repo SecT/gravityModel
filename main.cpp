@@ -1,6 +1,7 @@
 #include<iostream>
 #include <cstdlib>
-#include <set>
+//#include <set>
+#include<vector>
 #include <string>
 #include <iterator>
 //#include <tuple>
@@ -64,17 +65,27 @@ int main()
 //	float circle_x = 400;
 //	float circle_y = 300;
 //	float circle_r = 25.f;
-    Body body0(55.f);
+
+    std::vector<Body> bodies;
+
+    //Body body0(55.f);
+    //bodies.push_back(body0);
+    bodies.push_back(Body(55.f));
+    bodies.push_back(Body(25.f));
 
     //sf::Vector2f circle_movement(1.f, 0.f);
     //sf::Vector2f circle_movement(1.f, 1.f);
-    body0.setVelocity(1.f, 0.f);
+    //body0.setVelocity(1.f, 0.f);
+    bodies[0].setVelocity(1.f, 0.f);
+    bodies[1].setVelocity(-1.f, 0.f);
 
 //	sf::CircleShape myCircle(circle_r);
 
 //	myCircle.setFillColor(sf::Color(100, 250, 50));
 
-    body0.setPosition(400, 300);
+    //body0.setPosition(400, 300);
+    bodies[0].setPosition(400, 300);
+    bodies[1].setPosition(400, 200);
 
     //std::cout<<body0.x<<" "<<body0.y<<std::endl;
 
@@ -105,10 +116,17 @@ int main()
             {
                 if (event.key.code == sf::Keyboard::Space)
                 {
-                    body0.setPosition(body0.x + body0.v_x, body0.y + body0.v_y);
-                    std::cout<<body0.x<<" "<<body0.y<<std::endl;
-                    //    std::cout<<body0.v_x<<" "<<body0.v_y<<std::endl;
-                    //  std::cout<<body0.v_x+body0.x<<std::endl;
+                    std::cout<<std::endl;
+                    //       body0.setPosition(body0.x + body0.v_x, body0.y + body0.v_y);
+                    for(std::vector<Body>::iterator it = bodies.begin(); it != bodies.end(); ++it)
+                    {
+
+
+                        (*it).setPosition((*it).x + (*it).v_x, (*it).y + (*it).v_y);
+                        std::cout<<(*it).x<<" "<<(*it).y<<std::endl;
+                        //    std::cout<<body0.v_x<<" "<<body0.v_y<<std::endl;
+                        //  std::cout<<body0.v_x+body0.x<<std::endl;
+                    }
                 }
             }
             //if (event.type == sf::Event::KeyPressed)
@@ -137,7 +155,13 @@ int main()
 
         //window.draw(myRectangle);
 //		window.draw(myCircle);
-        window.draw(body0.getCircleShape());
+        //window.draw(body0.getCircleShape());
+
+        for (std::vector<Body>::iterator it = bodies.begin(); it != bodies.end(); ++it)
+        {
+            window.draw((*it).getCircleShape());
+        }
+
 
         // end the current frame
         window.display();
