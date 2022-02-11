@@ -1,10 +1,15 @@
 //int fun();
 
-class Body
+class Body : public sf::Drawable
 {
 private:
 
     sf::CircleShape myCircle;
+
+    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
+    {
+        target.draw(myCircle, states);
+    }
 
 public:
     float x;
