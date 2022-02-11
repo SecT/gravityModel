@@ -9,19 +9,51 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
+#include <math.h>
+
 #include "myConfig.h"
 #include "myLib.h"
 
 #include "main.h"
 
+float calculateDistance_x(Body& b1, Body& b2)
+{
+    float dist = 1.0f;
+
+//    dist = sqrt( (b2.x-b1.x)*(b2.x-b1.x) + (b2.y-b1.y)*(b2.y-b1.y) );
+    //dist = abs( (b2.x-b1.x) );
+    dist = ( (b2.x-b1.x) );
+
+
+
+    return dist;
+}
+
+float calculateDistance_y(Body& b1, Body& b2)
+{
+    float dist = 1.0f;
+
+//    dist = sqrt( (b2.x-b1.x)*(b2.x-b1.x) + (b2.y-b1.y)*(b2.y-b1.y) );
+    //dist = abs( (b2.y-b1.y) );
+    dist = ( (b2.y-b1.y) );
+
+    return dist;
+}
+
 
 void processMotionForBodies(std::vector<Body> &bodies)
 {
+    //TODO: refactoring and optimization
+    //- F(A,B) = F(B,A) , where A,B - bodies
+    //- ...
+
+    std::vector<float> accelerations_x;
+    std::vector<float> accelerations_y;
+
+
 
     for(std::vector<Body>::iterator it = bodies.begin(); it != bodies.end(); ++it)
     {
-
-        //calculate
 
         //calculate accelaration
         //a = F/m
@@ -34,8 +66,53 @@ void processMotionForBodies(std::vector<Body> &bodies)
             {
                 float f_n_x = 0.f;
                 float f_n_y = 0.f;
+
+                const float G = 1;
                 //calculate f_n between (it) and (jt)
                 //then add f to the sum of forces on (it)
+                //F=G*m1*m2/r^2
+                //m1=m2=1
+
+                float r_x = calculateDistance_x( (*jt), (*it) );
+                float r_y = calculateDistance_y( (*jt), (*it) );
+                float r_x_sqr = r_x*r_x;
+                float r_y_sqr = r_y*r_y;
+
+                //get the direction of the vector - gravity is a attractive force
+                ///////////
+                //TODO: remove ugly hack...
+                if(((*jt).x-(*it).x) < 0 )
+                {
+                    r_x_sqr = -r_x_sqr;
+                }
+
+                //TODO: remove ugly hack...
+                if(((*jt).y-(*it).y) < 0 )
+                {
+                    r_y_sqr = -r_y_sqr;
+                }
+////////////////
+
+                if(r_x_sqr != 0)
+                {
+                    f_n_x = G/r_x_sqr;
+                }
+                else
+                {
+                    f_n_x = 0;
+                }
+
+
+                if(r_y_sqr != 0)
+                {
+                    f_n_y = G/r_y_sqr;
+                }
+                else
+                {
+                    f_n_y = 0;
+                }
+
+
                 f_x+=f_n_x;
                 f_y+=f_n_y;
             }
@@ -44,11 +121,23 @@ void processMotionForBodies(std::vector<Body> &bodies)
         float a_x = f_x;
         float a_y = f_y;
 
+        accelerations_x.push_back(a_x);
+        accelerations_y.push_back(a_y);
+
+    }
+
+    int i=0;
+    for(std::vector<Body>::iterator it = bodies.begin(); it != bodies.end(); ++it)
+    {
+
+
         //update velocity
         //v = v_old + a*t
         //t can be normalized to 1 ?
-        (*it).v_x+=a_x;
-        (*it).v_y+=a_y;
+        //(*it).v_x+=a_x;
+        (*it).v_x+=accelerations_x[i];
+        //(*it).v_y+=a_y;
+        (*it).v_y+=accelerations_y[i];
 
         //update position
         //x_current = x_old + v*t
@@ -57,6 +146,8 @@ void processMotionForBodies(std::vector<Body> &bodies)
 
 
         std::cout<<(*it).x<<" "<<(*it).y<<std::endl;
+
+        i++;
     }
 
 }
@@ -77,24 +168,34 @@ int main()
 
     std::vector<Body> bodies;
 
-    bodies.push_back(Body(55.f));
+    bodies.push_back(Body(25.f));
     bodies.push_back(Body(25.f));
 
     //sf::Vector2f circle_movement(1.f, 0.f);
     //sf::Vector2f circle_movement(1.f, 1.f);
     //body0.setVelocity(1.f, 0.f);
-    bodies[0].setVelocity(1.f, 0.f);
-    bodies[1].setVelocity(-1.f, 0.f);
+    //bodies[0].setVelocity(1.f, 0.f);
+    //bodies[1].setVelocity(-1.f, 0.f);
 
+    bodies[0].setVelocity(0.f, 0.f);
+    bodies[1].setVelocity(0.f, 0.f);
+
+    //Test case - bodies on the same X
     bodies[0].setPosition(400, 300);
     bodies[1].setPosition(400, 200);
+    ///
+
+    //Test case - bodies on the same Y
+    //bodies[0].setPosition(400, 300);
+    //bodies[1].setPosition(300, 300);
+    //////
 
     std::cout<<"Sfml start"<<std::endl;
 
     while (window.isOpen())
     {
         //std::cout<<"Event"<<std::endl;
-
+        processMotionForBodies(bodies);
         // check all the window's events that were triggered since the last iteration of the loop
         sf::Event event;
         while (window.pollEvent(event))
@@ -106,15 +207,15 @@ int main()
                 window.close();
             }
 
-            if (event.type == sf::Event::KeyPressed)
+//            if (event.type == sf::Event::KeyPressed)
+//            {
+//                if (event.key.code == sf::Keyboard::Space)
             {
-                if (event.key.code == sf::Keyboard::Space)
-                {
-                    std::cout<<std::endl;
+                std::cout<<std::endl;
 
-                    processMotionForBodies(bodies);
-                }
+                processMotionForBodies(bodies);
             }
+            // }
         }
 
         window.clear(sf::Color::White);
