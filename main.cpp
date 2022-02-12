@@ -230,15 +230,15 @@ void setupExample_ThreeBodiesTriangle(vector<Body>& bodies)
 
 void setupExampleConfig(vector<Body>& bodies, vector<float>& exampleConfig)
 {
-    int bodyCount = exampleConfig.size()/6;
+    const int numberOfParametersForBody = 6;
+    int bodyCount = static_cast<int>(exampleConfig.size())/numberOfParametersForBody;
 
     for(int i = 0 ; i< bodyCount; i++)
     {
-        bodies.push_back(Body(exampleConfig[1+i*6], exampleConfig[i*6]));
-        bodies[i].setPosition(exampleConfig[2+i*6],exampleConfig[3+i*6]);
-        bodies[i].setVelocity(exampleConfig[4+i*6],exampleConfig[5+i*6]);
+        bodies.push_back(Body(exampleConfig[1+i*numberOfParametersForBody], exampleConfig[i*numberOfParametersForBody]));
+        bodies[i].setPosition(exampleConfig[2+i*numberOfParametersForBody],exampleConfig[3+i*numberOfParametersForBody]);
+        bodies[i].setVelocity(exampleConfig[4+i*numberOfParametersForBody],exampleConfig[5+i*numberOfParametersForBody]);
     }
-
 }
 
 int main()
