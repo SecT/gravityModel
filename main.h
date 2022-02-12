@@ -15,11 +15,12 @@ public:
     float x;
     float y;
     float r;
+    float m;
 
     float v_x;
     float v_y;
 
-    Body(float r) : v_x(0.f), v_y(0.f)
+    Body( float rad, float newMass=1.0f) : x(0), y(0), r(rad), v_x(0.f), v_y(0.f), m(newMass)
     {
         myCircle = sf::CircleShape(r);
         myCircle.setFillColor(sf::Color(100, 250, 50));

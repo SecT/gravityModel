@@ -117,9 +117,21 @@ void processMotionForBodies(std::vector<Body> &bodies, float dt)
                 f_y+=f_n_y;
             }
         }
-        //m=1
-        float a_x = f_x;
-        float a_y = f_y;
+
+        float a_x = 0.0f;
+        float a_y = 0.0f;
+
+//        if((*it).m == 1)
+//        {
+//            //mass is 1, we can avoid costly division
+//            a_x = f_x;
+//            a_y = f_y;
+//        }
+//        else
+        {
+            a_x = f_x/(*it).m;
+            a_y = f_y/(*it).m;
+        }
 
         accelerations_x.push_back(a_x);
         accelerations_y.push_back(a_y);
@@ -146,7 +158,7 @@ void processMotionForBodies(std::vector<Body> &bodies, float dt)
         (*it).setPosition((*it).x + (*it).v_x, (*it).y + (*it).v_y);
 
 
-        std::cout<<(*it).x<<" "<<(*it).y<<std::endl;
+        std::cout<<(*it).x<<" "<<(*it).y<<" "<<(*it).v_x<<" "<<(*it).v_y<<std::endl;
 
         i++;
     }
@@ -167,13 +179,13 @@ void setupExample_TwoBodiesSameX(std::vector<Body>& bodies)
 
 void setupExample_TwoBodiesSameXInitialVelocity(std::vector<Body>& bodies)
 {
-    //Test case - two bodies on the same X
-    bodies.push_back(Body(25.f));
+    //Test case - two bodies on the same X, one has got initial velocity, the other has got larger mass
+    bodies.push_back(Body(35.f, 10000));
     bodies.push_back(Body(25.f));
     bodies[0].setPosition(400, 300);
     bodies[1].setPosition(400, 200);
     bodies[0].setVelocity(0.f, 0.f);
-    bodies[1].setVelocity(1.f, 0.f);
+    bodies[1].setVelocity(0.01f, 0.f);
     ///
 }
 
@@ -212,7 +224,10 @@ int main()
 
 
     float dt = 1.f;
-    std::cout<<"dt: "<<std::endl;
+    std::cout<<"dt: "<<dt<<std::endl;
+
+    bool debugMode = false;
+    std::cout<<"DebugMode: "<<debugMode<<std::endl;
 
     int window_width = 800;
     int window_height = 600;
@@ -224,8 +239,8 @@ int main()
     //bodies.push_back(Body(25.f));
 
     //Configuration
-    //setupExample_TwoBodiesSameX(bodies);
-    setupExample_TwoBodiesSameXInitialVelocity(bodies);
+    setupExample_TwoBodiesSameX(bodies);
+    //setupExample_TwoBodiesSameXInitialVelocity(bodies);
     //setupExample_TwoBodiesSameY(bodies);
     //setupExample_ThreeBodiesTriangle(bodies);
 
@@ -234,6 +249,12 @@ int main()
     while (window.isOpen())
     {
         //std::cout<<"Event"<<std::endl;
+
+        //process motion without input from the user
+        if(!debugMode)
+        {
+            processMotionForBodies(bodies, dt);
+        }
 
         // check all the window's events that were triggered since the last iteration of the loop
         sf::Event event;
@@ -246,13 +267,18 @@ int main()
                 window.close();
             }
 
-            if (event.type == sf::Event::KeyPressed)
+            //process motion only when key is pressed
+            if(debugMode)
             {
-                if (event.key.code == sf::Keyboard::Space)
-                {
-                    std::cout<<std::endl;
 
-                    processMotionForBodies(bodies, dt);
+                if (event.type == sf::Event::KeyPressed)
+                {
+                    if (event.key.code == sf::Keyboard::Space)
+                    {
+                        std::cout<<std::endl;
+
+                        processMotionForBodies(bodies, dt);
+                    }
                 }
             }
         }
