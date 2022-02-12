@@ -165,6 +165,18 @@ void setupExample_TwoBodiesSameX(std::vector<Body>& bodies)
     ///
 }
 
+void setupExample_TwoBodiesSameXInitialVelocity(std::vector<Body>& bodies)
+{
+    //Test case - two bodies on the same X
+    bodies.push_back(Body(25.f));
+    bodies.push_back(Body(25.f));
+    bodies[0].setPosition(400, 300);
+    bodies[1].setPosition(400, 200);
+    bodies[0].setVelocity(0.f, 0.f);
+    bodies[1].setVelocity(1.f, 0.f);
+    ///
+}
+
 void setupExample_TwoBodiesSameY(std::vector<Body>& bodies)
 {
     //Test case - two bodies on the same Y
@@ -212,7 +224,8 @@ int main()
     //bodies.push_back(Body(25.f));
 
     //Configuration
-    setupExample_TwoBodiesSameX(bodies);
+    //setupExample_TwoBodiesSameX(bodies);
+    setupExample_TwoBodiesSameXInitialVelocity(bodies);
     //setupExample_TwoBodiesSameY(bodies);
     //setupExample_ThreeBodiesTriangle(bodies);
 
