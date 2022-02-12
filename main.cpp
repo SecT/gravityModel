@@ -228,6 +228,19 @@ void setupExample_ThreeBodiesTriangle(vector<Body>& bodies)
     //////
 }
 
+void setupExampleConfig(vector<Body>& bodies, vector<float>& exampleConfig)
+{
+    int bodyCount = exampleConfig.size()/6;
+
+    for(int i = 0 ; i< bodyCount; i++)
+    {
+        bodies.push_back(Body(exampleConfig[1+i*6], exampleConfig[i*6]));
+        bodies[i].setPosition(exampleConfig[2+i*6],exampleConfig[3+i*6]);
+        bodies[i].setVelocity(exampleConfig[4+i*6],exampleConfig[5+i*6]);
+    }
+
+}
+
 int main()
 {
     cout<<"Gravity Model"<<endl;
@@ -235,7 +248,7 @@ int main()
     cout<<Tutorial_VERSION_MAJOR << "."<< Tutorial_VERSION_MINOR <<endl;
 
     vector<float> config;
-    readFromFile(config);
+    readFromFile(config, "config.txt");
 
     //for(vector<int>::iterator it = config.begin(); it != config.end(); ++it)
     //{
@@ -263,22 +276,32 @@ int main()
     vector<Body> bodies;
     //bodies.push_back(Body(25.f));
 
+    vector<float> exampleConfig;
     //Configuration
     switch(exampleUsed)
     {
     case 0:
         break;
     case 1:
-        setupExample_TwoBodiesSameX(bodies);
+        //setupExample_TwoBodiesSameX(bodies);
+
+    readFromFile(exampleConfig, "example_TwoBodies_SameX.txt");
+    setupExampleConfig(bodies, exampleConfig);
         break;
     case 2:
-        setupExample_TwoBodiesSameXInitialVelocity(bodies);
+        //setupExample_TwoBodiesSameXInitialVelocity(bodies);
+    readFromFile(exampleConfig, "example_TwoBodies_SameX_InitV.txt");
+    setupExampleConfig(bodies, exampleConfig);
         break;
     case 3:
-        setupExample_TwoBodiesSameY(bodies);
+        //setupExample_TwoBodiesSameY(bodies);
+    readFromFile(exampleConfig, "example_TwoBodies_SameY.txt");
+    setupExampleConfig(bodies, exampleConfig);
         break;
     case 4:
-        setupExample_ThreeBodiesTriangle(bodies);
+        //setupExample_ThreeBodiesTriangle(bodies);
+            readFromFile(exampleConfig, "example_ThreeBodies_Triangle.txt");
+    setupExampleConfig(bodies, exampleConfig);
         break;
     default:
         break;

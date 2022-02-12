@@ -3,6 +3,7 @@
 #include <vector>
 #include <fstream>
 //#include <iostream>
+#include <string>
 
 using std::ifstream;
 //using std::cerr;
@@ -58,11 +59,11 @@ public:
 };
 
 
-void readFromFile(vector<float>& config)
+void readFromFile(vector<float>& config, std::string filename)
 {
     ifstream indata; // indata is like cin
     float num; // variable for input value
-    indata.open("config.txt"); // opens the file
+    indata.open(filename); // opens the file
     if(!indata)   // file couldn't be opened
     {
         //cerr << "Error: file could not be opened" << endl;
