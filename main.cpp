@@ -153,6 +153,44 @@ void processMotionForBodies(std::vector<Body> &bodies, float dt)
 
 }
 
+void setupExample_TwoBodiesSameX(std::vector<Body>& bodies)
+{
+    //Test case - two bodies on the same X
+    bodies.push_back(Body(25.f));
+    bodies.push_back(Body(25.f));
+    bodies[0].setPosition(400, 300);
+    bodies[1].setPosition(400, 200);
+    bodies[0].setVelocity(0.f, 0.f);
+    bodies[1].setVelocity(0.f, 0.f);
+    ///
+}
+
+void setupExample_TwoBodiesSameY(std::vector<Body>& bodies)
+{
+    //Test case - two bodies on the same Y
+    bodies.push_back(Body(25.f));
+    bodies.push_back(Body(25.f));
+    bodies[0].setPosition(400, 300);
+    bodies[1].setPosition(300, 300);
+    bodies[0].setVelocity(0.f, 0.f);
+    bodies[1].setVelocity(0.f, 0.f);
+    //////
+}
+
+void setupExample_ThreeBodiesTriangle(std::vector<Body>& bodies)
+{
+    //Test case - three bodies placed in a triangle corners
+    bodies.push_back(Body(25.f));
+    bodies.push_back(Body(25.f));
+    bodies.push_back(Body(25.f));
+    bodies[0].setVelocity(0.f, 0.f);
+    bodies[1].setVelocity(0.f, 0.f);
+    bodies[2].setVelocity(0.f, 0.f);
+    bodies[0].setPosition(400, 100);
+    bodies[1].setPosition(200, 400);
+    bodies[2].setPosition(600, 400);
+    //////
+}
 
 int main()
 {
@@ -171,35 +209,12 @@ int main()
     sf::RenderWindow  window(sf::VideoMode(window_width, window_height), "Gravity Model");
 
     std::vector<Body> bodies;
-
-    bodies.push_back(Body(25.f));
-    bodies.push_back(Body(25.f));
     //bodies.push_back(Body(25.f));
 
-    //sf::Vector2f circle_movement(1.f, 0.f);
-    //sf::Vector2f circle_movement(1.f, 1.f);
-    //body0.setVelocity(1.f, 0.f);
-    //bodies[0].setVelocity(1.f, 0.f);
-    //bodies[1].setVelocity(-1.f, 0.f);
-
-    bodies[0].setVelocity(0.f, 0.f);
-    bodies[1].setVelocity(0.f, 0.f);
-
-    //Test case - bodies on the same X
-    bodies[0].setPosition(400, 300);
-    bodies[1].setPosition(400, 200);
-    ///
-
-    //Test case - bodies on the same Y
-    //bodies[0].setPosition(400, 300);
-    //bodies[1].setPosition(300, 300);
-    //////
-
-    //Test case - three bodies placed in a triangle
-    //bodies[0].setPosition(400, 100);
-    //bodies[1].setPosition(200, 400);
-    //bodies[2].setPosition(600, 400);
-    //////
+    //Configuration
+    setupExample_TwoBodiesSameX(bodies);
+    //setupExample_TwoBodiesSameY(bodies);
+    //setupExample_ThreeBodiesTriangle(bodies);
 
     std::cout<<"Sfml start"<<std::endl;
 
