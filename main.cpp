@@ -15,6 +15,11 @@
 
 #include "main.h"
 
+using std::cout;
+using std::endl;
+using std::setw;
+using std::vector;
+
 float calculateDistance_x(Body& b1, Body& b2)
 {
     float dist = 1.0f;
@@ -40,18 +45,18 @@ float calculateDistance_y(Body& b1, Body& b2)
 }
 
 
-void processMotionForBodies(std::vector<Body> &bodies, float dt)
+void processMotionForBodies(vector<Body> &bodies, float dt)
 {
     //TODO: refactoring and optimization
     //- F(A,B) = F(B,A) , where A,B - bodies
     //- ...
 
-    std::vector<float> accelerations_x;
-    std::vector<float> accelerations_y;
+    vector<float> accelerations_x;
+    vector<float> accelerations_y;
 
 
 
-    for(std::vector<Body>::iterator it = bodies.begin(); it != bodies.end(); ++it)
+    for(vector<Body>::iterator it = bodies.begin(); it != bodies.end(); ++it)
     {
 
         //calculate accelaration
@@ -59,7 +64,7 @@ void processMotionForBodies(std::vector<Body> &bodies, float dt)
         //m can be normalized to 1
         float f_x = 0.f;
         float f_y = 0.f;
-        for(std::vector<Body>::iterator jt = bodies.begin(); jt != bodies.end(); ++jt)
+        for(vector<Body>::iterator jt = bodies.begin(); jt != bodies.end(); ++jt)
         {
             if( it != jt  )
             {
@@ -141,9 +146,9 @@ void processMotionForBodies(std::vector<Body> &bodies, float dt)
 
     int numberOfSpacesForFormattingOutput=15;
 
-    std::cout<<"Mass               X               Y              Vx              Vy              Ax              Ay"<<std::endl;
+    cout<<"Mass               X               Y              Vx              Vy              Ax              Ay"<<endl;
 
-    for(std::vector<Body>::iterator it = bodies.begin(); it != bodies.end(); ++it)
+    for(vector<Body>::iterator it = bodies.begin(); it != bodies.end(); ++it)
     {
 
         //update velocity
@@ -161,18 +166,18 @@ void processMotionForBodies(std::vector<Body> &bodies, float dt)
         (*it).setPosition((*it).x + (*it).v_x, (*it).y + (*it).v_y);
 
 
-        std::cout<<std::setw(4)<<(*it).m<<" "<<std::setw(numberOfSpacesForFormattingOutput)<<(*it).x<<" "
-        <<std::setw(numberOfSpacesForFormattingOutput)<<(*it).y<<" "<<std::setw(numberOfSpacesForFormattingOutput)<<(*it).v_x<<" "
-        <<std::setw(numberOfSpacesForFormattingOutput)
-        <<(*it).v_y<<" "<<std::setw(numberOfSpacesForFormattingOutput)<<accelerations_x[i]<<" "
-        <<std::setw(numberOfSpacesForFormattingOutput)<<accelerations_y[i]<<std::endl;
+        cout<<setw(4)<<(*it).m<<" "<<setw(numberOfSpacesForFormattingOutput)<<(*it).x<<" "
+        <<setw(numberOfSpacesForFormattingOutput)<<(*it).y<<" "<<setw(numberOfSpacesForFormattingOutput)<<(*it).v_x<<" "
+        <<setw(numberOfSpacesForFormattingOutput)
+        <<(*it).v_y<<" "<<setw(numberOfSpacesForFormattingOutput)<<accelerations_x[i]<<" "
+        <<setw(numberOfSpacesForFormattingOutput)<<accelerations_y[i]<<endl;
 
         i++;
     }
 
 }
 
-void setupExample_TwoBodiesSameX(std::vector<Body>& bodies)
+void setupExample_TwoBodiesSameX(vector<Body>& bodies)
 {
     //Test case - two bodies on the same X
     bodies.push_back(Body(25.f));
@@ -184,7 +189,7 @@ void setupExample_TwoBodiesSameX(std::vector<Body>& bodies)
     ///
 }
 
-void setupExample_TwoBodiesSameXInitialVelocity(std::vector<Body>& bodies)
+void setupExample_TwoBodiesSameXInitialVelocity(vector<Body>& bodies)
 {
     //Test case - two bodies on the same X, one has got initial velocity, the other has got larger mass
     bodies.push_back(Body(35.f, 3.0f));
@@ -196,7 +201,7 @@ void setupExample_TwoBodiesSameXInitialVelocity(std::vector<Body>& bodies)
     ///
 }
 
-void setupExample_TwoBodiesSameY(std::vector<Body>& bodies)
+void setupExample_TwoBodiesSameY(vector<Body>& bodies)
 {
     //Test case - two bodies on the same Y
     bodies.push_back(Body(25.f));
@@ -208,7 +213,7 @@ void setupExample_TwoBodiesSameY(std::vector<Body>& bodies)
     //////
 }
 
-void setupExample_ThreeBodiesTriangle(std::vector<Body>& bodies)
+void setupExample_ThreeBodiesTriangle(vector<Body>& bodies)
 {
     //Test case - three bodies placed in a triangle corners
     bodies.push_back(Body(25.f));
@@ -225,17 +230,17 @@ void setupExample_ThreeBodiesTriangle(std::vector<Body>& bodies)
 
 int main()
 {
-    std::cout<<"Gravity Model"<<std::endl;
-    std::cout<<"Version: ";
-    std::cout<<Tutorial_VERSION_MAJOR << "."<< Tutorial_VERSION_MINOR <<std::endl;
+    cout<<"Gravity Model"<<endl;
+    cout<<"Version: ";
+    cout<<Tutorial_VERSION_MAJOR << "."<< Tutorial_VERSION_MINOR <<endl;
 
 
     float dt = 1.f;
-    std::cout<<"dt: "<<dt<<std::endl;
+    cout<<"dt: "<<dt<<endl;
 
     //bool debugMode = false;
     bool debugMode = true;
-    std::cout<<"DebugMode: "<<debugMode<<std::endl;
+    cout<<"DebugMode: "<<debugMode<<endl;
 
     int window_width = 800;
     int window_height = 600;
@@ -243,7 +248,7 @@ int main()
     //sf::Window window(sf::VideoMode(800, 600), "My window");
     sf::RenderWindow  window(sf::VideoMode(window_width, window_height), "Gravity Model");
 
-    std::vector<Body> bodies;
+    vector<Body> bodies;
     //bodies.push_back(Body(25.f));
 
     //Configuration
@@ -252,11 +257,11 @@ int main()
     //setupExample_TwoBodiesSameY(bodies);
     //setupExample_ThreeBodiesTriangle(bodies);
 
-    std::cout<<"Sfml start"<<std::endl;
+    cout<<"Sfml start"<<endl;
 
     while (window.isOpen())
     {
-        //std::cout<<"Event"<<std::endl;
+        //cout<<"Event"<<endl;
 
         //process motion without input from the user
         if(!debugMode)
@@ -283,7 +288,7 @@ int main()
                 {
                     if (event.key.code == sf::Keyboard::Space)
                     {
-                        std::cout<<std::endl;
+                        cout<<endl;
 
                         processMotionForBodies(bodies, dt);
                     }
@@ -293,7 +298,7 @@ int main()
 
         window.clear(sf::Color::White);
 
-        for (std::vector<Body>::iterator it = bodies.begin(); it != bodies.end(); ++it)
+        for (vector<Body>::iterator it = bodies.begin(); it != bodies.end(); ++it)
         {
             window.draw((*it));
         }
