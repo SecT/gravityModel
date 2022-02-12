@@ -1,5 +1,15 @@
 //int fun();
 
+#include <vector>
+#include <fstream>
+//#include <iostream>
+
+using std::ifstream;
+//using std::cerr;
+//using std::cout;
+//using std::endl;
+using std::vector;
+
 class Body : public sf::Drawable
 {
 private:
@@ -46,3 +56,26 @@ public:
     }
 
 };
+
+
+void readFromFile(vector<float>& config)
+{
+    ifstream indata; // indata is like cin
+    float num; // variable for input value
+    indata.open("config.txt"); // opens the file
+    if(!indata)   // file couldn't be opened
+    {
+        //cerr << "Error: file could not be opened" << endl;
+        exit(1);
+    }
+    indata >> num;
+
+    while ( !indata.eof() )   // keep reading until end-of-file
+    {
+        //cout << "The next number is " << num << endl;
+        config.push_back(num);
+        indata >> num; // sets EOF flag if no value found
+    }
+    indata.close();
+    //cout << "End-of-file reached.." << endl;
+}

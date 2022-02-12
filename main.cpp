@@ -167,10 +167,10 @@ void processMotionForBodies(vector<Body> &bodies, float dt)
 
 
         cout<<setw(4)<<(*it).m<<" "<<setw(numberOfSpacesForFormattingOutput)<<(*it).x<<" "
-        <<setw(numberOfSpacesForFormattingOutput)<<(*it).y<<" "<<setw(numberOfSpacesForFormattingOutput)<<(*it).v_x<<" "
-        <<setw(numberOfSpacesForFormattingOutput)
-        <<(*it).v_y<<" "<<setw(numberOfSpacesForFormattingOutput)<<accelerations_x[i]<<" "
-        <<setw(numberOfSpacesForFormattingOutput)<<accelerations_y[i]<<endl;
+            <<setw(numberOfSpacesForFormattingOutput)<<(*it).y<<" "<<setw(numberOfSpacesForFormattingOutput)<<(*it).v_x<<" "
+            <<setw(numberOfSpacesForFormattingOutput)
+            <<(*it).v_y<<" "<<setw(numberOfSpacesForFormattingOutput)<<accelerations_x[i]<<" "
+            <<setw(numberOfSpacesForFormattingOutput)<<accelerations_y[i]<<endl;
 
         i++;
     }
@@ -234,13 +234,25 @@ int main()
     cout<<"Version: ";
     cout<<Tutorial_VERSION_MAJOR << "."<< Tutorial_VERSION_MINOR <<endl;
 
+    vector<float> config;
+    readFromFile(config);
 
-    float dt = 1.f;
+    //for(vector<int>::iterator it = config.begin(); it != config.end(); ++it)
+    //{
+    //    cout<<"config: "<<(*it)<<endl;
+    //}
+
+    //float dt = 1.f;
+    float dt = config[0];
     cout<<"dt: "<<dt<<endl;
 
     //bool debugMode = false;
-    bool debugMode = true;
+    //bool debugMode = true;
+    bool debugMode = config[1];
     cout<<"DebugMode: "<<debugMode<<endl;
+
+    int exampleUsed = static_cast<int>(config[2]);
+    cout<<"Using example setting: "<<exampleUsed<<endl;
 
     int window_width = 800;
     int window_height = 600;
@@ -252,10 +264,25 @@ int main()
     //bodies.push_back(Body(25.f));
 
     //Configuration
-    //setupExample_TwoBodiesSameX(bodies);
-    setupExample_TwoBodiesSameXInitialVelocity(bodies);
-    //setupExample_TwoBodiesSameY(bodies);
-    //setupExample_ThreeBodiesTriangle(bodies);
+    switch(exampleUsed)
+    {
+    case 0:
+        break;
+    case 1:
+        setupExample_TwoBodiesSameX(bodies);
+        break;
+    case 2:
+        setupExample_TwoBodiesSameXInitialVelocity(bodies);
+        break;
+    case 3:
+        setupExample_TwoBodiesSameY(bodies);
+        break;
+    case 4:
+        setupExample_ThreeBodiesTriangle(bodies);
+        break;
+    default:
+        break;
+    }
 
     cout<<"Sfml start"<<endl;
 
