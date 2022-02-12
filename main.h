@@ -39,7 +39,7 @@ public:
         v_y = newVy;
     }
 
-    //TODO: just make Body drawable, instead of exposing myCircle
+    //TODO: no longer needed, Body is now drawable, so we don't need to expose the shape object
     sf::CircleShape getCircleShape()
     {
         return myCircle;

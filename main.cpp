@@ -1,10 +1,9 @@
 #include<iostream>
 #include <cstdlib>
-//#include <set>
 #include<vector>
 #include <string>
 #include <iterator>
-//#include <tuple>
+#include <iomanip>
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
@@ -139,9 +138,13 @@ void processMotionForBodies(std::vector<Body> &bodies, float dt)
     }
 
     int i=0;
+
+    int numberOfSpacesForFormattingOutput=15;
+
+    std::cout<<"Mass               X               Y              Vx              Vy              Ax              Ay"<<std::endl;
+
     for(std::vector<Body>::iterator it = bodies.begin(); it != bodies.end(); ++it)
     {
-
 
         //update velocity
         //v = v_old + a*t
@@ -158,7 +161,11 @@ void processMotionForBodies(std::vector<Body> &bodies, float dt)
         (*it).setPosition((*it).x + (*it).v_x, (*it).y + (*it).v_y);
 
 
-        std::cout<<(*it).x<<" "<<(*it).y<<" "<<(*it).v_x<<" "<<(*it).v_y<<std::endl;
+        std::cout<<std::setw(4)<<(*it).m<<" "<<std::setw(numberOfSpacesForFormattingOutput)<<(*it).x<<" "
+        <<std::setw(numberOfSpacesForFormattingOutput)<<(*it).y<<" "<<std::setw(numberOfSpacesForFormattingOutput)<<(*it).v_x<<" "
+        <<std::setw(numberOfSpacesForFormattingOutput)
+        <<(*it).v_y<<" "<<std::setw(numberOfSpacesForFormattingOutput)<<accelerations_x[i]<<" "
+        <<std::setw(numberOfSpacesForFormattingOutput)<<accelerations_y[i]<<std::endl;
 
         i++;
     }
@@ -180,12 +187,12 @@ void setupExample_TwoBodiesSameX(std::vector<Body>& bodies)
 void setupExample_TwoBodiesSameXInitialVelocity(std::vector<Body>& bodies)
 {
     //Test case - two bodies on the same X, one has got initial velocity, the other has got larger mass
-    bodies.push_back(Body(35.f, 10000));
+    bodies.push_back(Body(35.f, 3.0f));
     bodies.push_back(Body(25.f));
     bodies[0].setPosition(400, 300);
     bodies[1].setPosition(400, 200);
     bodies[0].setVelocity(0.f, 0.f);
-    bodies[1].setVelocity(0.01f, 0.f);
+    bodies[1].setVelocity(1.0f, 0.f);
     ///
 }
 
@@ -226,7 +233,8 @@ int main()
     float dt = 1.f;
     std::cout<<"dt: "<<dt<<std::endl;
 
-    bool debugMode = false;
+    //bool debugMode = false;
+    bool debugMode = true;
     std::cout<<"DebugMode: "<<debugMode<<std::endl;
 
     int window_width = 800;
@@ -239,8 +247,8 @@ int main()
     //bodies.push_back(Body(25.f));
 
     //Configuration
-    setupExample_TwoBodiesSameX(bodies);
-    //setupExample_TwoBodiesSameXInitialVelocity(bodies);
+    //setupExample_TwoBodiesSameX(bodies);
+    setupExample_TwoBodiesSameXInitialVelocity(bodies);
     //setupExample_TwoBodiesSameY(bodies);
     //setupExample_ThreeBodiesTriangle(bodies);
 
