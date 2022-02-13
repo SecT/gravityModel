@@ -1,5 +1,6 @@
 
 #include <vector>
+#include <array>
 #include <fstream>
 #include <string>
 #include <iomanip>
@@ -39,19 +40,28 @@ float calculateDistance_y(Body& b1, Body& b2)
 void showOutput(vector<Body>& bodies)
 {
 
-    int numberOfSpacesForFormattingOutput=15;
+    int columnWidth=16;
 
     cout<<endl;
 
-    cout<<"Mass               X               Y              Vx              Vy              Ax              Ay"<<endl;
+    std::array<std::string, 7> headers = { { "Mass", "X", "Y", "Vx", "Vy", "Ax", "Ay" }};
+
+    std::cout<<setw(4)<<headers[0];
+
+    for (int i = 1; i < headers.size(); i++)
+    {
+        std::cout<<setw(columnWidth)<<headers[i];
+    }
+
+    std::cout<<endl;
 
     for(vector<Body>::iterator it = bodies.begin(); it != bodies.end(); ++it)
     {
-        cout<<setw(4)<<(*it).m<<" "<<setw(numberOfSpacesForFormattingOutput)<<(*it).x<<" "
-            <<setw(numberOfSpacesForFormattingOutput)<<(*it).y<<" "<<setw(numberOfSpacesForFormattingOutput)<<(*it).v_x<<" "
-            <<setw(numberOfSpacesForFormattingOutput)
-            <<(*it).v_y<<" "<<setw(numberOfSpacesForFormattingOutput)<<(*it).a_x<<" "
-            <<setw(numberOfSpacesForFormattingOutput)<<(*it).a_y<<endl;
+        cout<<setw(4)<<(*it).m<<setw(columnWidth)<<(*it).x<<
+            setw(columnWidth)<<(*it).y<<setw(columnWidth)<<(*it).v_x
+            <<setw(columnWidth)
+            <<(*it).v_y<<setw(columnWidth)<<(*it).a_x
+            <<setw(columnWidth)<<(*it).a_y<<endl;
     }
 }
 
