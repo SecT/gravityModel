@@ -36,24 +36,22 @@ float calculateDistance_y(Body& b1, Body& b2)
     return dist;
 }
 
-void showOutput(vector<Body>& bodies, vector<float> accelerations_x, vector<float> accelerations_y)
+void showOutput(vector<Body>& bodies)
 {
-    int i=0;
 
     int numberOfSpacesForFormattingOutput=15;
+
+    cout<<endl;
 
     cout<<"Mass               X               Y              Vx              Vy              Ax              Ay"<<endl;
 
     for(vector<Body>::iterator it = bodies.begin(); it != bodies.end(); ++it)
     {
-
         cout<<setw(4)<<(*it).m<<" "<<setw(numberOfSpacesForFormattingOutput)<<(*it).x<<" "
             <<setw(numberOfSpacesForFormattingOutput)<<(*it).y<<" "<<setw(numberOfSpacesForFormattingOutput)<<(*it).v_x<<" "
             <<setw(numberOfSpacesForFormattingOutput)
-            <<(*it).v_y<<" "<<setw(numberOfSpacesForFormattingOutput)<<accelerations_x[i]<<" "
-            <<setw(numberOfSpacesForFormattingOutput)<<accelerations_y[i]<<endl;
-
-        i++;
+            <<(*it).v_y<<" "<<setw(numberOfSpacesForFormattingOutput)<<(*it).a_x<<" "
+            <<setw(numberOfSpacesForFormattingOutput)<<(*it).a_y<<endl;
     }
 }
 
@@ -66,8 +64,6 @@ void processMotionForBodies(vector<Body> &bodies, float dt)
 
     vector<float> accelerations_x;
     vector<float> accelerations_y;
-
-
 
     for(vector<Body>::iterator it = bodies.begin(); it != bodies.end(); ++it)
     {
@@ -153,9 +149,10 @@ void processMotionForBodies(vector<Body> &bodies, float dt)
         accelerations_x.push_back(a_x);
         accelerations_y.push_back(a_y);
 
-    }
+        (*it).a_x = a_x;
+        (*it).a_y = a_y;
 
-    int i=0;
+    }
 
     for(vector<Body>::iterator it = bodies.begin(); it != bodies.end(); ++it)
     {
@@ -165,20 +162,15 @@ void processMotionForBodies(vector<Body> &bodies, float dt)
         //t can be normalized to 1 ?
         //(*it).v_x+=a_x;
         //float dt = 1.f;
-        (*it).v_x+=(accelerations_x[i] *dt);
+        (*it).v_x+=( (*it).a_x *dt);
         //(*it).v_y+=a_y;
-        (*it).v_y+=(accelerations_y[i] *dt);
+        (*it).v_y+=( (*it).a_y *dt);
 
         //update position
         //x_current = x_old + v*t
         //t can be normalized to 1 ?
         (*it).setPosition((*it).x + (*it).v_x, (*it).y + (*it).v_y);
-
-        i++;
     }
-
-    showOutput(bodies, accelerations_x, accelerations_y);
-
 }
 
 

@@ -90,6 +90,7 @@ int main()
         if(!debugMode)
         {
             processMotionForBodies(bodies, dt);
+            showOutput(bodies);
         }
 
         // check all the window's events that were triggered since the last iteration of the loop
@@ -111,9 +112,8 @@ int main()
                 {
                     if (event.key.code == sf::Keyboard::Space)
                     {
-                        cout<<endl;
-
                         processMotionForBodies(bodies, dt);
+                        showOutput(bodies);
                     }
                 }
             }

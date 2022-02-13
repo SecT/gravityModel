@@ -21,7 +21,10 @@ public:
     float v_x;
     float v_y;
 
-    Body( float rad, float newMass=1.0f) : x(0), y(0), r(rad), v_x(0.f), v_y(0.f), m(newMass)
+    float a_x;
+    float a_y;
+
+    Body( float rad, float newMass=1.0f) : x(0), y(0), r(rad), m(newMass), v_x(0.f), v_y(0.f), a_x(0.0f), a_y(0.0f)
     {
         myCircle = sf::CircleShape(r);
         myCircle.setFillColor(sf::Color(100, 250, 50));
