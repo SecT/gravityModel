@@ -54,7 +54,8 @@ target_include_directories(gravityModel PUBLIC
 #target_link_directories(gravityModel PUBLIC "${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib")
 
 #target_link_libraries(gravityModel PUBLIC Body)
-target_link_libraries(gravityModel PUBLIC Body "${PROJECT_SOURCE_DIR}/SFML/lib/sfml-system.lib" "${PROJECT_SOURCE_DIR}/SFML/lib/sfml-window.lib" "${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib/sfml-graphics.lib")
+target_link_libraries(gravityModel PUBLIC Body "${PROJECT_SOURCE_DIR}/SFML/lib/sfml-system.lib" "${PROJECT_SOURCE_DIR}/SFML/lib/sfml-window.lib" "${PROJECT_SOURCE_DIR}/SFML/lib/sfml-graphics.lib")
+
 #target_link_libraries(myTests PUBLIC gtest_main Body)
 
 #copy dlls needed for runtime to the exe dir
