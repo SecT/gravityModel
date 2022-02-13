@@ -36,6 +36,27 @@ float calculateDistance_y(Body& b1, Body& b2)
     return dist;
 }
 
+void showOutput(vector<Body>& bodies, vector<float> accelerations_x, vector<float> accelerations_y)
+{
+    int i=0;
+
+    int numberOfSpacesForFormattingOutput=15;
+
+    cout<<"Mass               X               Y              Vx              Vy              Ax              Ay"<<endl;
+
+    for(vector<Body>::iterator it = bodies.begin(); it != bodies.end(); ++it)
+    {
+
+        cout<<setw(4)<<(*it).m<<" "<<setw(numberOfSpacesForFormattingOutput)<<(*it).x<<" "
+            <<setw(numberOfSpacesForFormattingOutput)<<(*it).y<<" "<<setw(numberOfSpacesForFormattingOutput)<<(*it).v_x<<" "
+            <<setw(numberOfSpacesForFormattingOutput)
+            <<(*it).v_y<<" "<<setw(numberOfSpacesForFormattingOutput)<<accelerations_x[i]<<" "
+            <<setw(numberOfSpacesForFormattingOutput)<<accelerations_y[i]<<endl;
+
+        i++;
+    }
+}
+
 
 void processMotionForBodies(vector<Body> &bodies, float dt)
 {
@@ -136,10 +157,6 @@ void processMotionForBodies(vector<Body> &bodies, float dt)
 
     int i=0;
 
-    int numberOfSpacesForFormattingOutput=15;
-
-    cout<<"Mass               X               Y              Vx              Vy              Ax              Ay"<<endl;
-
     for(vector<Body>::iterator it = bodies.begin(); it != bodies.end(); ++it)
     {
 
@@ -157,68 +174,13 @@ void processMotionForBodies(vector<Body> &bodies, float dt)
         //t can be normalized to 1 ?
         (*it).setPosition((*it).x + (*it).v_x, (*it).y + (*it).v_y);
 
-
-        cout<<setw(4)<<(*it).m<<" "<<setw(numberOfSpacesForFormattingOutput)<<(*it).x<<" "
-            <<setw(numberOfSpacesForFormattingOutput)<<(*it).y<<" "<<setw(numberOfSpacesForFormattingOutput)<<(*it).v_x<<" "
-            <<setw(numberOfSpacesForFormattingOutput)
-            <<(*it).v_y<<" "<<setw(numberOfSpacesForFormattingOutput)<<accelerations_x[i]<<" "
-            <<setw(numberOfSpacesForFormattingOutput)<<accelerations_y[i]<<endl;
-
         i++;
     }
 
+    showOutput(bodies, accelerations_x, accelerations_y);
+
 }
 
-void setupExample_TwoBodiesSameX(vector<Body>& bodies)
-{
-    //Test case - two bodies on the same X
-    bodies.push_back(Body(25.f));
-    bodies.push_back(Body(25.f));
-    bodies[0].setPosition(400, 300);
-    bodies[1].setPosition(400, 200);
-    bodies[0].setVelocity(0.f, 0.f);
-    bodies[1].setVelocity(0.f, 0.f);
-    ///
-}
-
-void setupExample_TwoBodiesSameXInitialVelocity(vector<Body>& bodies)
-{
-    //Test case - two bodies on the same X, one has got initial velocity, the other has got larger mass
-    bodies.push_back(Body(35.f, 3.0f));
-    bodies.push_back(Body(25.f));
-    bodies[0].setPosition(400, 300);
-    bodies[1].setPosition(400, 200);
-    bodies[0].setVelocity(0.f, 0.f);
-    bodies[1].setVelocity(1.0f, 0.f);
-    ///
-}
-
-void setupExample_TwoBodiesSameY(vector<Body>& bodies)
-{
-    //Test case - two bodies on the same Y
-    bodies.push_back(Body(25.f));
-    bodies.push_back(Body(25.f));
-    bodies[0].setPosition(400, 300);
-    bodies[1].setPosition(300, 300);
-    bodies[0].setVelocity(0.f, 0.f);
-    bodies[1].setVelocity(0.f, 0.f);
-    //////
-}
-
-void setupExample_ThreeBodiesTriangle(vector<Body>& bodies)
-{
-    //Test case - three bodies placed in a triangle corners
-    bodies.push_back(Body(25.f));
-    bodies.push_back(Body(25.f));
-    bodies.push_back(Body(25.f));
-    bodies[0].setVelocity(0.f, 0.f);
-    bodies[1].setVelocity(0.f, 0.f);
-    bodies[2].setVelocity(0.f, 0.f);
-    bodies[0].setPosition(400, 100);
-    bodies[1].setPosition(200, 400);
-    bodies[2].setPosition(600, 400);
-    //////
-}
 
 void setupExampleConfig(vector<Body>& bodies, vector<float>& exampleConfig)
 {
@@ -232,7 +194,6 @@ void setupExampleConfig(vector<Body>& bodies, vector<float>& exampleConfig)
         bodies[i].setVelocity(exampleConfig[4+i*numberOfParametersForBody],exampleConfig[5+i*numberOfParametersForBody]);
     }
 }
-
 
 void readFromFile(vector<float>& config, std::string filename)
 {
