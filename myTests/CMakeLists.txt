@@ -35,7 +35,7 @@ enable_testing()
 add_executable(myTests myTests.cpp)
 
 #target_link_libraries(myCmakeTraining PUBLIC myLib)
-target_link_libraries(myTests PUBLIC gtest_main myLib)
+target_link_libraries(myTests PUBLIC gtest_main Body)
 
 #this specifies the include directories. So the paths to included files in the source files don't need to be specified - the name is enough
 #target_include_directories(myCmakeTraining PUBLIC
@@ -43,7 +43,9 @@ target_link_libraries(myTests PUBLIC gtest_main myLib)
 #                           "${PROJECT_SOURCE_DIR}/myLib"
 #                           )
 target_include_directories( myTests PUBLIC
-                           "${PROJECT_SOURCE_DIR}/myLib"
+                           "${PROJECT_SOURCE_DIR}/Body"
+                           "${PROJECT_SOURCE_DIR}/SFML-2.5.1/include/"
+                           "${PROJECT_SOURCE_DIR}/SFML-2.5.1/bin"
 )
 
 #required to run tests by the "ctest" command

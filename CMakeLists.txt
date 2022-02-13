@@ -12,7 +12,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 #the first filename given is the base file, used to generate the second file
 configure_file(myConfig.h.in myConfig.h)
 
-add_subdirectory(myLib)
+add_subdirectory(Body)
 
 add_subdirectory(myTests)
 
@@ -45,7 +45,7 @@ add_executable(gravityModel main.cpp)
 #this specifies the include directories. So the paths to included files in the source files don't need to be specified - the name is enough
 target_include_directories(gravityModel PUBLIC
                            "${PROJECT_BINARY_DIR}"
-                           "${PROJECT_SOURCE_DIR}/myLib"
+                           "${PROJECT_SOURCE_DIR}/Body"
                            "${PROJECT_SOURCE_DIR}/SFML-2.5.1/include/"
                            "${PROJECT_SOURCE_DIR}/SFML-2.5.1/bin"
 #                           "${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib"
@@ -53,9 +53,9 @@ target_include_directories(gravityModel PUBLIC
 
 #target_link_directories(gravityModel PUBLIC "${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib")
 
-#target_link_libraries(gravityModel PUBLIC myLib)
-target_link_libraries(gravityModel PUBLIC myLib "${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib/sfml-system.lib" "${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib/sfml-window.lib" "${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib/sfml-graphics.lib")
-#target_link_libraries(myTests PUBLIC gtest_main myLib)
+#target_link_libraries(gravityModel PUBLIC Body)
+target_link_libraries(gravityModel PUBLIC Body "${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib/sfml-system.lib" "${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib/sfml-window.lib" "${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib/sfml-graphics.lib")
+#target_link_libraries(myTests PUBLIC gtest_main Body)
 
 #copy dlls needed for runtime to the exe dir
 add_custom_command(TARGET gravityModel POST_BUILD
@@ -68,7 +68,7 @@ add_custom_command(TARGET gravityModel POST_BUILD
     )
 
 #target_include_directories( myTests PUBLIC
-#                           "${PROJECT_SOURCE_DIR}/myLib"
+#                           "${PROJECT_SOURCE_DIR}/Body"
 #)
 
 #required to run tests by the "ctest" command
