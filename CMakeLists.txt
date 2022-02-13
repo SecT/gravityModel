@@ -46,25 +46,25 @@ add_executable(gravityModel main.cpp)
 target_include_directories(gravityModel PUBLIC
                            "${PROJECT_BINARY_DIR}"
                            "${PROJECT_SOURCE_DIR}/Body"
-                           "${PROJECT_SOURCE_DIR}/SFML-2.5.1/include/"
-                           "${PROJECT_SOURCE_DIR}/SFML-2.5.1/bin"
+                           "${PROJECT_SOURCE_DIR}/SFML/include/"
+                           "${PROJECT_SOURCE_DIR}/SFML/bin"
 #                           "${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib"
                            )
 
 #target_link_directories(gravityModel PUBLIC "${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib")
 
 #target_link_libraries(gravityModel PUBLIC Body)
-target_link_libraries(gravityModel PUBLIC Body "${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib/sfml-system.lib" "${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib/sfml-window.lib" "${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib/sfml-graphics.lib")
+target_link_libraries(gravityModel PUBLIC Body "${PROJECT_SOURCE_DIR}/SFML/lib/sfml-system.lib" "${PROJECT_SOURCE_DIR}/SFML/lib/sfml-window.lib" "${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib/sfml-graphics.lib")
 #target_link_libraries(myTests PUBLIC gtest_main Body)
 
 #copy dlls needed for runtime to the exe dir
 add_custom_command(TARGET gravityModel POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/SFML-2.5.1/bin/sfml-window-2.dll" "${PROJECT_BINARY_DIR}/Debug/"
-    COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/SFML-2.5.1/bin/sfml-window-d-2.dll" "${PROJECT_BINARY_DIR}/Debug/"
-    COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/SFML-2.5.1/bin/sfml-system-2.dll" "${PROJECT_BINARY_DIR}/Debug/"
-    COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/SFML-2.5.1/bin/sfml-system-d-2.dll" "${PROJECT_BINARY_DIR}/Debug/"
-    COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/SFML-2.5.1/bin/sfml-graphics-2.dll" "${PROJECT_BINARY_DIR}/Debug/"
-    COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/SFML-2.5.1/bin/sfml-graphics-d-2.dll" "${PROJECT_BINARY_DIR}/Debug/"
+    COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/SFML/bin/sfml-window-2.dll" "${PROJECT_BINARY_DIR}/Debug/"
+    COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/SFML/bin/sfml-window-d-2.dll" "${PROJECT_BINARY_DIR}/Debug/"
+    COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/SFML/bin/sfml-system-2.dll" "${PROJECT_BINARY_DIR}/Debug/"
+    COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/SFML/bin/sfml-system-d-2.dll" "${PROJECT_BINARY_DIR}/Debug/"
+    COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/SFML/bin/sfml-graphics-2.dll" "${PROJECT_BINARY_DIR}/Debug/"
+    COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/SFML/bin/sfml-graphics-d-2.dll" "${PROJECT_BINARY_DIR}/Debug/"
     )
 
 #target_include_directories( myTests PUBLIC

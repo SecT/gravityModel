@@ -44,8 +44,8 @@ target_link_libraries(myTests PUBLIC gtest_main Body)
 #                           )
 target_include_directories( myTests PUBLIC
                            "${PROJECT_SOURCE_DIR}/Body"
-                           "${PROJECT_SOURCE_DIR}/SFML-2.5.1/include/"
-                           "${PROJECT_SOURCE_DIR}/SFML-2.5.1/bin"
+                           "${PROJECT_SOURCE_DIR}/SFML/include/"
+                           "${PROJECT_SOURCE_DIR}/SFML/bin"
 )
 
 #required to run tests by the "ctest" command
