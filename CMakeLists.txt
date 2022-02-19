@@ -13,6 +13,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 configure_file(myConfig.h.in myConfig.h)
 
 add_subdirectory(Body)
+add_subdirectory(myLib)
 
 add_subdirectory(myTests)
 
@@ -45,6 +46,7 @@ add_executable(gravityModel main.cpp)
 #this specifies the include directories. So the paths to included files in the source files don't need to be specified - the name is enough
 target_include_directories(gravityModel PUBLIC
                            "${PROJECT_BINARY_DIR}"
+                           "${PROJECT_SOURCE_DIR}/myLib"
                            "${PROJECT_SOURCE_DIR}/Body"
                            "${PROJECT_SOURCE_DIR}/SFML/include/"
                            "${PROJECT_SOURCE_DIR}/SFML/bin"

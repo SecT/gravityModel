@@ -6,6 +6,7 @@
 
 #include "myConfig.h"
 #include "Body.h"
+#include "myLib.h"
 
 #include "main.h"
 

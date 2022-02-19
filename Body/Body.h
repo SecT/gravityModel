@@ -1,3 +1,6 @@
+#ifndef BODY_H
+#define BODY_H
+
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
@@ -50,3 +53,5 @@ public:
     }
 
 };
+
+#endif
