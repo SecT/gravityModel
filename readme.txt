@@ -40,7 +40,10 @@ cmake --build .\myBuildWin\
 e.g
 .\myBuildWin\Debug\gravityModel.exe
 
-
+6) Run tests
+[cmake build folder created in step 3]\myTests\Debug\myTests.exe
+e.g
+.\myBuildWin\myTests\Debug\myTests.exe
 
 ////////Using the program//////////////////////////
 
