@@ -25,20 +25,24 @@ gravityModel
 
 cmake -S . -B [build folder for cmake]
 e.g
-cmake -S . -B myBuildWin/
-This will create myBuildWin directory with the generated cmake files
+cmake -S . -B myBuild/
+This will create myBuild directory with the generated cmake files
 
 4) Build the project 
 
 cmake --build [cmake build folder created in step 3]
 e.g
-cmake --build .\myBuildWin\
+cmake --build .\myBuild\
 
 5) Run the program
 
-[cmake build folder created in step 3]\Debug\gravityModel.exe
-e.g
-.\myBuildWin\Debug\gravityModel.exe
+WIN:
+	[cmake build folder created in step 3]\Debug\gravityModel.exe
+	e.g
+	.\myBuild\Debug\gravityModel.exe
+
+LINUX:
+	./myBuild/gravityModel
 
 6) Run tests
 [cmake build folder created in step 3]\myTests\Debug\myTests.exe
@@ -64,3 +68,4 @@ By setting this line you choose which config should be loaded
 2 - example_TwoBodies_SameX_InitV.txt  - two bodies, one mass is larger than the other, placed vertically, one body has got initial velocity
 3 - example_TwoBodies_SameY.txt        - two bodies, same mass, placed horizontally, no initial velocity
 4 - example_ThreeBodies_Triangle.txt   - three bodies, same mass, placed in the corners of a triangle, no initial velocity
+
