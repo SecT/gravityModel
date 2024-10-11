@@ -25,7 +25,7 @@ int main()
     cout<<Tutorial_VERSION_MAJOR << "."<< Tutorial_VERSION_MINOR <<endl;
 
     float dt = 1.f;
-    bool debugMode = false;               //process motion only when space key is pressed
+    bool debugMode = false;               //process motion only when the space key is pressed
     int exampleUsed = 4;
 
     int window_width = 800;
@@ -51,7 +51,7 @@ int main()
 		dt            = myConfig["dt"];
 		//debugMode     = myConfig["debugMode"];
 		//cout<<myConfig["debugMode"]<<endl;
-		debugMode = myConfig["debugMode"] == 1 ? true : false ;
+		debugMode =     myConfig["debugMode"];
 		exampleUsed   = static_cast<int>(myConfig["exampleUsed"]);
 		window_width  = myConfig["window_width"];
 		window_height = myConfig["window_height"];
