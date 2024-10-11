@@ -1,4 +1,7 @@
 
+#include <fstream>
+#include <nlohmann/json.hpp>
+
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
@@ -21,28 +24,46 @@ int main()
     cout<<"Version: ";
     cout<<Tutorial_VERSION_MAJOR << "."<< Tutorial_VERSION_MINOR <<endl;
 
-    vector<float> config;
-    readFromFile(config, "config.txt");
-
-    //for(vector<int>::iterator it = config.begin(); it != config.end(); ++it)
-    //{
-    //    cout<<"config: "<<(*it)<<endl;
-    //}
-
-    //float dt = 1.f;
-    float dt = config[0];
-    cout<<"dt: "<<dt<<endl;
-
-    //bool debugMode = false;
-    //bool debugMode = true;
-    bool debugMode = config[1];
-    cout<<"DebugMode: "<<debugMode<<endl;
-
-    int exampleUsed = static_cast<int>(config[2]);
-    cout<<"Using example setting: "<<exampleUsed<<endl;
+    float dt = 1.f;
+    bool debugMode = false;               //process motion only when space key is pressed
+    int exampleUsed = 4;
 
     int window_width = 800;
     int window_height = 600;
+
+    //read from the old config file
+    //vector<float> config;
+    //readFromFile(config, "config.txt");
+    //dt = config[0];
+    //debugMode = config[1];
+    //exampleUsed = static_cast<int>(config[2]);
+    /////////
+
+
+
+	// read configuration from the json file 	
+	std::ifstream configFile("config.json");
+	if (!configFile.fail())
+	{
+		nlohmann::json myConfig = nlohmann::json::parse(configFile);
+		
+		
+		dt            = myConfig["dt"];
+		//debugMode     = myConfig["debugMode"];
+		//cout<<myConfig["debugMode"]<<endl;
+		debugMode = myConfig["debugMode"] == 1 ? true : false ;
+		exampleUsed   = static_cast<int>(myConfig["exampleUsed"]);
+		window_width  = myConfig["window_width"];
+		window_height = myConfig["window_height"];
+	}
+	////
+
+    cout<<"dt: "                   <<dt<<endl;
+    cout<<"DebugMode: "            <<debugMode<<endl;
+    cout<<"Using example setting: "<<exampleUsed<<endl;
+    cout<<"window_width: "         <<window_width<<endl;
+    cout<<"window_height: "        <<window_height<<endl;
+
 
     //sf::Window window(sf::VideoMode(800, 600), "My window");
     sf::RenderWindow  window(sf::VideoMode(window_width, window_height), "Gravity Model");

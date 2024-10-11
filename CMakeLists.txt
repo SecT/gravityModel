@@ -20,6 +20,12 @@ add_subdirectory(myTests)
 #add_subdirectory("SFML-2.5.1/lib/cmake")
 
 include(FetchContent)
+
+##json
+FetchContent_Declare(json URL https://github.com/nlohmann/json/releases/download/v3.11.3/json.tar.xz)
+FetchContent_MakeAvailable(json)
+####
+
 FetchContent_Declare(
   googletest
   URL https://github.com/google/googletest/archive/609281088cfefc76f9d0ce82e1ff6c30cc3591e5.zip
@@ -27,6 +33,8 @@ FetchContent_Declare(
 # For Windows: Prevent overriding the parent project's compiler/linker settings
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
+
+
 
 #required to run tests by the "ctest" command
 enable_testing()
@@ -40,6 +48,7 @@ add_executable(gravityModel main.cpp)
 #add_library( sfml-window SHARED IMPORTED )
 
 #link_directories("${PROJECT_SOURCE_DIR}/SFML-2.5.1/lib")
+
 
 
 
@@ -66,6 +75,8 @@ ENDIF (UNIX)
 IF(WIN32)
 	target_link_libraries(gravityModel PUBLIC Body "${PROJECT_SOURCE_DIR}/SFML/lib/sfml-system.lib" "${PROJECT_SOURCE_DIR}/SFML/lib/sfml-window.lib" "${PROJECT_SOURCE_DIR}/SFML/lib/sfml-graphics.lib")
 ENDIF(WIN32)
+
+target_link_libraries(gravityModel PRIVATE nlohmann_json::nlohmann_json)
 
 #target_link_libraries(myTests PUBLIC gtest_main Body)
 
