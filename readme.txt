@@ -25,14 +25,14 @@ gravityModel
 
 cmake -S . -B [build folder for cmake]
 e.g
-cmake -S . -B myBuild/
+cmake -S . -B myBuild
 This will create myBuild directory with the generated cmake files
 
 4) Build the project 
 
 cmake --build [cmake build folder created in step 3]
 e.g
-cmake --build .\myBuild\
+cmake --build ./myBuild
 
 5) Run the program
 
@@ -47,7 +47,10 @@ LINUX:
 6) Run tests
 [cmake build folder created in step 3]\myTests\Debug\myTests.exe
 e.g
-.\myBuildWin\myTests\Debug\myTests.exe
+WIN:
+	.\myBuildWin\myTests\Debug\myTests.exe
+LINUX:
+	./myBuild/myTests/myTests
 
 ////////Using the program//////////////////////////
 

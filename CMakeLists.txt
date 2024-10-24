@@ -67,9 +67,7 @@ target_include_directories(gravityModel PUBLIC
 #target_link_libraries(gravityModel PUBLIC Body)
 
 IF (UNIX)
-	target_link_libraries(gravityModel -lsfml-window)
-	target_link_libraries(gravityModel -lsfml-graphics)
-	target_link_libraries(gravityModel -lsfml-system)
+	target_link_libraries(gravityModel PUBLIC -lsfml-window -lsfml-graphics -lsfml-system)
 ENDIF (UNIX)
 
 IF(WIN32)
